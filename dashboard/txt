@@ -1,0 +1,39 @@
+        $(document).ready(function(){
+            $("#hapus").click(function(){
+              var id_siswa = $("#id_siswa").val();
+                $.ajax({
+                        url: "../fungsi/proses_siswa/proses_hapus.php",
+                        type: "POST",
+                        data: {
+                            "id_siswa": id_siswa,
+                        },
+
+                    success:function(response){
+
+                        if (response == "success") {
+
+                            Swal.fire({
+                                type: 'success',
+                                title:'Data Siswa Berhasil Dihapus!',
+                                text: 'Silahkan Kembali ke Halaman Sebelumnya'
+                            });
+                            $("#id_siswa").val('');
+                        } else {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Data Siswa Gagal Dihapus!',
+                                text: 'Silahkan Coba Lagi!'
+                            });
+                        }
+                        console.log(response);
+                    },
+                    error:function(response){
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Ooops!',
+                            text: 'Server Error!'
+                        });
+                    }
+                })
+            });
+        });
